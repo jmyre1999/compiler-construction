@@ -1,6 +1,6 @@
 Jason Myre | jmyre2017@my.fit.edu
 
-Compiler Theory Project
+Compiler Theory Project (FINAL ITERATION)
 
 My compiler is notably able to handle recursive calls, object allocation, inheritance, and array access.
 
