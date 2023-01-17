@@ -1,0 +1,47 @@
+/*
+ * Florida Tech, CSE4251: Compiler Design.  Part of the compiler project from
+ * "Modern Compiler Implementation in Java," 2nd edition, by Andrew W. Appel.
+ */
+package syntax;
+
+import java.util.List;
+
+/*
+   Structure representing the declaration of a method.  This is *not* a subclass of AST,
+   because additional line numbers are unnecessary.
+*/
+
+public class MethodDecl {
+   public final Type t;               // The return type of the method
+   public final Identifier i;         // The name of the method
+   public final List <FormalDecl> fl;     // The method's formal arguments
+   public final List <LocalDecl> locals;  // The method's local variables
+   public final List <Statement> sl;      // The body of the method
+   public final Expression e;             // The unique 'return' of the method
+
+   public MethodDecl (
+      final Type at,
+      final Identifier ai,
+      final List <FormalDecl> afl,
+      final List <LocalDecl> ll,
+      final List <Statement> asl,
+      final Expression ae) {
+      t=at; i=ai; fl=afl; locals=ll; sl=asl; e=ae;
+   }
+ 
+   public <T> T accept (final SyntaxTreeVisitor <T> v) {
+      return v.visit(this);
+   }
+
+   /*
+    "()V" is the descriptor of the method void f()
+    "(I)J" is the descriptor of the method long f(int i)
+    "(SZ)Ljava/lang/String;" is the descriptor of the method String f(short s, boolean b)
+    "([BB)[[Ljava/lang/Class;" is the descriptor of the method Class[][] f(byte[] t, byte b)
+    */
+   public String descriptor () {
+      final StringBuffer args = new StringBuffer ();
+      for (final FormalDecl decl: fl) args.append (decl.t.fieldDescriptor());
+      return String.format ("(%s)%s", args, t.fieldDescriptor());
+   }
+}

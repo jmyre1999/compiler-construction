@@ -1,0 +1,679 @@
+PARSER_BEGIN(MiniJavaParser)
+	package parser;
+	import java.io.InputStream;
+	public class MiniJavaParser {
+		public static int num_errors = 0;
+		public static String filename = "";
+		public MiniJavaParser(String given_filename, InputStream stream) {
+			this(stream);
+			filename = given_filename;
+		}
+		public static void error_handler(ParseException error) {
+			num_errors += 1;
+			int error_col = error.currentToken.beginColumn;
+			int error_line = error.currentToken.beginLine;
+			int token_index = error.expectedTokenSequences[0][0];
+			System.err.println(filename + ":" + error_line + "." + error_col + ": Syntax Error: expecting a '" + error.tokenImage[token_index] + "', found '" + error.currentToken + "'");
+		}
+	}
+PARSER_END(MiniJavaParser)
+
+TOKEN : {
+	  < #DIGIT: ["0"-"9"] >
+	| < INT: (<DIGIT>)+ >
+	| < IF: "if" >
+	| < ELSE: "else" >
+	| < CLASS: "class" >
+	| < PUBLIC: "public" >
+	| < STATIC: "static" >
+	| < VOID: "void" >
+	| < MAIN: "main" >
+	| < DSTRING: "String" >
+	| < DINT: "int" >
+	| < DBOOL: "boolean" >
+	| < WHILE: "while" >
+	| < PRINT: "System.out.println" >
+	| < AND: "&&" >
+	| < LESSTHAN: "<" >
+	| < PLUS: "+" >
+	| < MINUS: "-" >
+	| < TIMES: "*" >
+	| < DOT: "." >
+	| < LENGTH: "length" >
+	| < BOOL: "true" | "false" >
+	| < THIS: "this" >
+	| < NEW: "new" >
+	| < NOT: "!" >
+	| < LBRACKET: "[" >
+	| < RBRACKET: "]" >
+	| < LBRACE: "{" >
+	| < RBRACE: "}" >
+	| < LPAREN: "(" >
+	| < RPAREN: ")" >
+	| < RETURN: "return" >
+	| < EXTENDS: "extends" >
+	| < SEMICOLON: ";" >
+	| < COMMA: "," >
+	| < EQUAL: "=" >
+	| < ID: ["a"-"z", "A"-"Z"] (["a"-"z"] | ["A"-"Z"] | <DIGIT> | "_")* >
+	| < ERROR: ~[" ", "\t", "\n", "\r", "\f"] >
+}
+
+SKIP : {
+	  <"//" (~["\n", "\r"])* ("\n" | "\r" | "\r\n" | "")>
+	| <"/*" (~[])* "*/">
+	| " "
+	| "\t"
+	| "\n"
+	| "\r\n"
+	| "\r"
+}
+
+JAVACODE
+void skipAhead(int[] followset) {
+	Token t = MiniJavaParser.token;
+	Token previous_t;
+	boolean in_set = false;
+	int i = 0;
+	do {
+		previous_t = t;
+		t = getNextToken();
+		for(i=0;i<followset.length;i++) {
+			if(t.kind == followset[i]) {
+				in_set = true;
+				break;
+			}
+		}
+	}
+	while(t.kind != EOF && in_set == false);
+	MiniJavaParser.token = previous_t;
+	return;
+}
+
+void Start() :
+{}
+{ 
+	main_class() (class_declaration())* Eof() 
+}
+
+void Int() :
+{}
+{
+	try {
+		<INT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void If() :
+{}
+{
+	try {
+		<IF>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Else() :
+{}
+{
+	try {
+		<ELSE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Class() :
+{}
+{
+	try {
+		<CLASS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Public() :
+{}
+{
+	try {
+		<PUBLIC>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Static() :
+{}
+{
+	try {
+		<STATIC>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Void() :
+{}
+{
+	try {
+		<VOID>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Main() :
+{}
+{
+	try {
+		<MAIN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void DString() :
+{}
+{
+	try {
+		<DSTRING>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void DInt() :
+{}
+{
+	try {
+		<DINT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void DBool() :
+{}
+{
+	try {
+		<DBOOL>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void While() :
+{}
+{
+	try {
+		<WHILE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Print() :
+{}
+{
+	try {
+		<PRINT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void And() :
+{}
+{
+	try {
+		<AND>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void LessThan() :
+{}
+{
+	try {
+		<LESSTHAN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Plus() :
+{}
+{
+	try {
+		<PLUS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Minus() :
+{}
+{
+	try {
+		<MINUS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Times() :
+{}
+{
+	try {
+		<TIMES>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Dot() :
+{}
+{
+	try {
+		<DOT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Length() :
+{}
+{
+	try {
+		<LENGTH>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Bool() :
+{}
+{
+	try {
+		<BOOL>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void This() :
+{}
+{
+	try {
+		<THIS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void New() :
+{}
+{
+	try {
+		<NEW>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Not() :
+{}
+{
+	try {
+		<NOT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void LBracket() :
+{}
+{
+	try {
+		<LBRACKET>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void RBracket() :
+{}
+{
+	try {
+		<RBRACKET>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void LBrace() :
+{}
+{
+	try {
+		<LBRACE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void RBrace() :
+{}
+{
+	try {
+		<RBRACE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void LParen() :
+{}
+{
+	try {
+		<LPAREN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void RParen() :
+{}
+{
+	try {
+		<RPAREN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Return() :
+{}
+{
+	try {
+		<RETURN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Extends() :
+{}
+{
+	try {
+		<EXTENDS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Semicolon() :
+{}
+{
+	try {
+		<SEMICOLON>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {LBRACE, RBRACE, LBRACKET, RBRACKET, IF, ELSE, WHILE, RETURN, PRINT, DINT, DBOOL, ID, PUBLIC};
+		skipAhead(followset);
+	}
+}
+
+void Comma() :
+{}
+{
+	try {
+		<COMMA>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Equal() :
+{}
+{
+	try {
+		<EQUAL>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Id() :
+{}
+{
+	try {
+		<ID>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void Eof() :
+{}
+{
+	try {
+		<EOF>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+}
+
+void main_class() :
+{}
+{
+	try {
+		Class() Id() LBrace() Public() Static() Void() 
+		Main() LParen() DString() LBracket() RBracket() 
+		Id() RParen() LBrace() statement() RBrace() RBrace()
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {CLASS, EOF};
+		skipAhead(followset);
+	}
+}
+
+void class_declaration() :
+{}
+{
+	try {
+		Class() Id() (Extends() Id())? LBrace() 
+		(var_declaration())* (method_declaration())* RBrace()
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {CLASS, EOF};
+		skipAhead(followset);
+	}
+}
+
+void var_declaration() :
+{}
+{
+	try {
+		type() Id() Semicolon()
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {RBRACE, PUBLIC, DINT, DBOOL, ID};
+		skipAhead(followset);
+	}
+}
+
+void method_declaration() :
+{}
+{
+	try {
+		Public() type() Id() LParen() 
+		(type() Id() (Comma() type() Id())*)? 
+		RParen() LBrace() (LOOKAHEAD(2) var_declaration())* 
+		(statement())* Return() expression() Semicolon() RBrace() 
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {PUBLIC, RBRACE};
+		skipAhead(followset);
+	}
+}
+
+void type() :
+{}
+{ 	try {
+		  DInt() (LBracket() RBracket())?
+		| DBool()
+		| Id()
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {ID};
+		skipAhead(followset);
+	}
+}
+
+void statement() :
+{}
+{
+	try {
+		  LBrace() (statement())* RBrace()
+		| If() LParen() expression() RParen() statement() Else() statement()
+		| While() LParen() expression() RParen() statement()
+		| Print() LParen() expression() RParen() Semicolon()
+		| Id() (LBracket() expression() RBracket())? Equal() expression() Semicolon()
+	}
+	catch (ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {LBRACE, RBRACE, ELSE, IF, WHILE, PRINT, ID, RETURN};
+		skipAhead(followset);
+	}
+}
+
+void expression() :
+{}
+{
+	fith_lvl_expression() (And() fith_lvl_expression())*
+}
+
+void fith_lvl_expression() :
+{}
+{
+	fourth_lvl_expression() (LessThan() fourth_lvl_expression())* 
+}
+
+void fourth_lvl_expression() :
+{}
+{
+	third_lvl_expression() ((Plus() | Minus()) third_lvl_expression())*
+}
+
+void third_lvl_expression() :
+{}
+{
+	second_lvl_expression() (Times() second_lvl_expression())*
+}
+
+void second_lvl_expression() :
+{}
+{
+	  (Not())* first_lvl_expression()
+	| New() (first_lvl_expression() LParen() RParen() (first_lvl_expression_prime())? | DInt() LBracket() first_lvl_expression() RBracket())
+}
+
+void first_lvl_expression() :
+{}
+{
+	 Int() (first_lvl_expression_prime())?
+	| Bool() (first_lvl_expression_prime())?
+	| Id() (first_lvl_expression_prime())?
+	| This() (first_lvl_expression_prime())?
+	| LParen() expression() RParen() (first_lvl_expression_prime())?
+}
+
+void first_lvl_expression_prime() :
+{}
+{
+	LBracket() expression() RBracket() (first_lvl_expression_prime())?
+	| Dot() (Length() | Id() LParen() (expression() (Comma() expression())*)? RParen()) (first_lvl_expression_prime())?
+}

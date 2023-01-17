@@ -1,0 +1,1550 @@
+!	Procedure fragment TreeVisitor$main
+SEQ(
+  LABEL TreeVisitor$main$preludeEnd,
+  SEQ(
+    EVAL(
+      CALL(
+        NAME print_int,
+        CALL(
+          NAME TV$Start,
+          CALL(
+            NAME alloc_object,
+            CONST 0)))),
+    JUMP(NAME TreeVisitor$main$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment TV$Start
+SEQ(
+  LABEL TV$Start$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CALL(
+            NAME alloc_object,
+            CONST 24)),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            CALL(
+              NAME Tree$Init,
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 4)),
+              CONST 16)),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 8)),
+              CALL(
+                NAME Tree$Print,
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 4)))),
+            SEQ(
+              EVAL(
+                CALL(
+                  NAME print_int,
+                  CONST 100000000)),
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 8)),
+                  CALL(
+                    NAME Tree$Insert,
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                    CONST 8)),
+                SEQ(
+                  MOVE(
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 8)),
+                    CALL(
+                      NAME Tree$Insert,
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      CONST 24)),
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 8)),
+                      CALL(
+                        NAME Tree$Insert,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                        CONST 4)),
+                    SEQ(
+                      MOVE(
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 8)),
+                        CALL(
+                          NAME Tree$Insert,
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 4)),
+                          CONST 12)),
+                      SEQ(
+                        MOVE(
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 8)),
+                          CALL(
+                            NAME Tree$Insert,
+                            MEM(
+                              BINOP(MINUS, TEMP %fp, CONST 4)),
+                            CONST 20)),
+                        SEQ(
+                          MOVE(
+                            MEM(
+                              BINOP(MINUS, TEMP %fp, CONST 8)),
+                            CALL(
+                              NAME Tree$Insert,
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 4)),
+                              CONST 28)),
+                          SEQ(
+                            MOVE(
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 8)),
+                              CALL(
+                                NAME Tree$Insert,
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 4)),
+                                CONST 14)),
+                            SEQ(
+                              MOVE(
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 8)),
+                                CALL(
+                                  NAME Tree$Print,
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 4)))),
+                              SEQ(
+                                EVAL(
+                                  CALL(
+                                    NAME print_int,
+                                    CONST 100000000)),
+                                SEQ(
+                                  MOVE(
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 16)),
+                                    CALL(
+                                      NAME alloc_object,
+                                      CONST 8)),
+                                  SEQ(
+                                    EVAL(
+                                      CALL(
+                                        NAME print_int,
+                                        CONST 50000000)),
+                                    SEQ(
+                                      MOVE(
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 12)),
+                                        CALL(
+                                          NAME Tree$accept,
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 4)),
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 16)))),
+                                      SEQ(
+                                        EVAL(
+                                          CALL(
+                                            NAME print_int,
+                                            CONST 100000000)),
+                                        SEQ(
+                                          EVAL(
+                                            CALL(
+                                              NAME print_int,
+                                              CALL(
+                                                NAME Tree$Search,
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                CONST 24))),
+                                          SEQ(
+                                            EVAL(
+                                              CALL(
+                                                NAME print_int,
+                                                CALL(
+                                                  NAME Tree$Search,
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                  CONST 12))),
+                                            SEQ(
+                                              EVAL(
+                                                CALL(
+                                                  NAME print_int,
+                                                  CALL(
+                                                    NAME Tree$Search,
+                                                    MEM(
+                                                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                    CONST 16))),
+                                              SEQ(
+                                                EVAL(
+                                                  CALL(
+                                                    NAME print_int,
+                                                    CALL(
+                                                      NAME Tree$Search,
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                      CONST 50))),
+                                                SEQ(
+                                                  EVAL(
+                                                    CALL(
+                                                      NAME print_int,
+                                                      CALL(
+                                                        NAME Tree$Search,
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                        CONST 12))),
+                                                  SEQ(
+                                                    MOVE(
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                      CALL(
+                                                        NAME Tree$Delete,
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                        CONST 12)),
+                                                    SEQ(
+                                                      MOVE(
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                        CALL(
+                                                          NAME Tree$Print,
+                                                          MEM(
+                                                            BINOP(MINUS, TEMP %fp, CONST 4)))),
+                                                      EVAL(
+                                                        CALL(
+                                                          NAME print_int,
+                                                          CALL(
+                                                            NAME Tree$Search,
+                                                            MEM(
+                                                              BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                            CONST 12))))))))))))))))))))))))))),
+      MOVE(TEMP %i0, CONST 0)),
+    JUMP(NAME TV$Start$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Init
+SEQ(
+  LABEL Tree$Init$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(PLUS, TEMP %i0, CONST 8)),
+          TEMP %i1),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(PLUS, TEMP %i0, CONST 12)),
+            CONST 0),
+          MOVE(
+            MEM(
+              BINOP(PLUS, TEMP %i0, CONST 16)),
+            CONST 0))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$Init$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$SetRight
+SEQ(
+  LABEL Tree$SetRight$preludeEnd,
+  SEQ(
+    SEQ(
+      MOVE(
+        MEM(
+          BINOP(PLUS, TEMP %i0, CONST 4)),
+        TEMP %i1),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$SetRight$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$SetLeft
+SEQ(
+  LABEL Tree$SetLeft$preludeEnd,
+  SEQ(
+    SEQ(
+      MOVE(
+        MEM(TEMP %i0),
+        TEMP %i1),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$SetLeft$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$GetRight
+SEQ(
+  LABEL Tree$GetRight$preludeEnd,
+  SEQ(
+    MOVE(
+      TEMP %i0,
+      MEM(
+        BINOP(PLUS, TEMP %i0, CONST 4))),
+    JUMP(NAME Tree$GetRight$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$GetLeft
+SEQ(
+  LABEL Tree$GetLeft$preludeEnd,
+  SEQ(
+    MOVE(
+      TEMP %i0,
+      MEM(TEMP %i0)),
+    JUMP(NAME Tree$GetLeft$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$GetKey
+SEQ(
+  LABEL Tree$GetKey$preludeEnd,
+  SEQ(
+    MOVE(
+      TEMP %i0,
+      MEM(
+        BINOP(PLUS, TEMP %i0, CONST 8))),
+    JUMP(NAME Tree$GetKey$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$SetKey
+SEQ(
+  LABEL Tree$SetKey$preludeEnd,
+  SEQ(
+    SEQ(
+      MOVE(
+        MEM(
+          BINOP(PLUS, TEMP %i0, CONST 8)),
+        TEMP %i1),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$SetKey$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$GetHas_Right
+SEQ(
+  LABEL Tree$GetHas_Right$preludeEnd,
+  SEQ(
+    MOVE(
+      TEMP %i0,
+      MEM(
+        BINOP(PLUS, TEMP %i0, CONST 16))),
+    JUMP(NAME Tree$GetHas_Right$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$GetHas_Left
+SEQ(
+  LABEL Tree$GetHas_Left$preludeEnd,
+  SEQ(
+    MOVE(
+      TEMP %i0,
+      MEM(
+        BINOP(PLUS, TEMP %i0, CONST 12))),
+    JUMP(NAME Tree$GetHas_Left$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$SetHas_Left
+SEQ(
+  LABEL Tree$SetHas_Left$preludeEnd,
+  SEQ(
+    SEQ(
+      MOVE(
+        MEM(
+          BINOP(PLUS, TEMP %i0, CONST 12)),
+        TEMP %i1),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$SetHas_Left$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$SetHas_Right
+SEQ(
+  LABEL Tree$SetHas_Right$preludeEnd,
+  SEQ(
+    SEQ(
+      MOVE(
+        MEM(
+          BINOP(PLUS, TEMP %i0, CONST 16)),
+        TEMP %i1),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$SetHas_Right$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Compare
+SEQ(
+  LABEL Tree$Compare$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CONST 0),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            BINOP(PLUS, TEMP %i2, CONST 1)),
+          SEQ(
+            CJUMP(LT,
+              TEMP %i1,
+              TEMP %i2,
+              if$then006,if$else007),
+            SEQ(
+              LABEL if$then006,
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CONST 0),
+                SEQ(
+                  JUMP(NAME if$end008),
+                  SEQ(
+                    LABEL if$else007,
+                    SEQ(
+                      SEQ(
+                        CJUMP(NE,
+                          RET(
+                            SEQ(
+                              MOVE(TEMP t001, CONST 1),
+                              SEQ(
+                                CJUMP(LT,
+                                  TEMP %i1,
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 8)),
+                                  condExp$true001,condExp$false002),
+                                SEQ(
+                                  LABEL condExp$false002,
+                                  SEQ(
+                                    MOVE(TEMP t001, CONST 0),
+                                    LABEL condExp$true001)))),
+                            TEMP t001),
+                          CONST 1,
+                          if$then003,if$else004),
+                        SEQ(
+                          LABEL if$then003,
+                          SEQ(
+                            MOVE(
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 4)),
+                              CONST 0),
+                            SEQ(
+                              JUMP(NAME if$end005),
+                              SEQ(
+                                LABEL if$else004,
+                                SEQ(
+                                  MOVE(
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                                    CONST 1),
+                                  LABEL if$end005)))))),
+                      LABEL if$end008)))))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 4)))),
+    JUMP(NAME Tree$Compare$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Insert
+SEQ(
+  LABEL Tree$Insert$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CALL(
+            NAME alloc_object,
+            CONST 24)),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            CALL(
+              NAME Tree$Init,
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 4)),
+              TEMP %i1)),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 12)),
+              TEMP %i0),
+            SEQ(
+              MOVE(
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 16)),
+                CONST 1),
+              SEQ(
+                CJUMP(EQ,
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 16)),
+                  CONST 1,
+                  while$body018,while$done019),
+                SEQ(
+                  LABEL while$body018,
+                  SEQ(
+                    SEQ(
+                      MOVE(
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 20)),
+                        CALL(
+                          NAME Tree$GetKey,
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 12)))),
+                      SEQ(
+                        CJUMP(LT,
+                          TEMP %i1,
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 20)),
+                          if$then015,if$else016),
+                        SEQ(
+                          LABEL if$then015,
+                          SEQ(
+                            SEQ(
+                              CJUMP(EQ,
+                                CALL(
+                                  NAME Tree$GetHas_Left,
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 12))),
+                                CONST 1,
+                                if$then009,if$else010),
+                              SEQ(
+                                LABEL if$then009,
+                                SEQ(
+                                  MOVE(
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 12)),
+                                    CALL(
+                                      NAME Tree$GetLeft,
+                                      MEM(
+                                        BINOP(MINUS, TEMP %fp, CONST 12)))),
+                                  SEQ(
+                                    JUMP(NAME if$end011),
+                                    SEQ(
+                                      LABEL if$else010,
+                                      SEQ(
+                                        SEQ(
+                                          MOVE(
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 16)),
+                                            CONST 0),
+                                          SEQ(
+                                            MOVE(
+                                              MEM(
+                                                BINOP(MINUS, TEMP %fp, CONST 8)),
+                                              CALL(
+                                                NAME Tree$SetHas_Left,
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                CONST 1)),
+                                            MOVE(
+                                              MEM(
+                                                BINOP(MINUS, TEMP %fp, CONST 8)),
+                                              CALL(
+                                                NAME Tree$SetLeft,
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 4)))))),
+                                        LABEL if$end011)))))),
+                            SEQ(
+                              JUMP(NAME if$end017),
+                              SEQ(
+                                LABEL if$else016,
+                                SEQ(
+                                  SEQ(
+                                    CJUMP(EQ,
+                                      CALL(
+                                        NAME Tree$GetHas_Right,
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 12))),
+                                      CONST 1,
+                                      if$then012,if$else013),
+                                    SEQ(
+                                      LABEL if$then012,
+                                      SEQ(
+                                        MOVE(
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 12)),
+                                          CALL(
+                                            NAME Tree$GetRight,
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 12)))),
+                                        SEQ(
+                                          JUMP(NAME if$end014),
+                                          SEQ(
+                                            LABEL if$else013,
+                                            SEQ(
+                                              SEQ(
+                                                MOVE(
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 16)),
+                                                  CONST 0),
+                                                SEQ(
+                                                  MOVE(
+                                                    MEM(
+                                                      BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                    CALL(
+                                                      NAME Tree$SetHas_Right,
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                      CONST 1)),
+                                                  MOVE(
+                                                    MEM(
+                                                      BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                    CALL(
+                                                      NAME Tree$SetRight,
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 4)))))),
+                                              LABEL if$end014)))))),
+                                  LABEL if$end017))))))),
+                    SEQ(
+                      CJUMP(EQ,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 16)),
+                        CONST 1,
+                        while$body018,while$done019),
+                      LABEL while$done019)))))))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$Insert$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Delete
+SEQ(
+  LABEL Tree$Delete$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          TEMP %i0),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            TEMP %i0),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 12)),
+              CONST 1),
+            SEQ(
+              MOVE(
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 16)),
+                CONST 0),
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 24)),
+                  CONST 1),
+                SEQ(
+                  CJUMP(EQ,
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 12)),
+                    CONST 1,
+                    while$body042,while$done043),
+                  SEQ(
+                    LABEL while$body042,
+                    SEQ(
+                      SEQ(
+                        MOVE(
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 28)),
+                          CALL(
+                            NAME Tree$GetKey,
+                            MEM(
+                              BINOP(MINUS, TEMP %fp, CONST 4)))),
+                        SEQ(
+                          SEQ(
+                            CJUMP(LT,
+                              TEMP %i1,
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 28)),
+                              if$then039,if$else040),
+                            SEQ(
+                              LABEL if$then039,
+                              SEQ(
+                                SEQ(
+                                  CJUMP(EQ,
+                                    CALL(
+                                      NAME Tree$GetHas_Left,
+                                      MEM(
+                                        BINOP(MINUS, TEMP %fp, CONST 4))),
+                                    CONST 1,
+                                    if$then020,if$else021),
+                                  SEQ(
+                                    LABEL if$then020,
+                                    SEQ(
+                                      SEQ(
+                                        MOVE(
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 8)),
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 4))),
+                                        MOVE(
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 4)),
+                                          CALL(
+                                            NAME Tree$GetLeft,
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 4))))),
+                                      SEQ(
+                                        JUMP(NAME if$end022),
+                                        SEQ(
+                                          LABEL if$else021,
+                                          SEQ(
+                                            MOVE(
+                                              MEM(
+                                                BINOP(MINUS, TEMP %fp, CONST 12)),
+                                              CONST 0),
+                                            LABEL if$end022)))))),
+                                SEQ(
+                                  JUMP(NAME if$end041),
+                                  SEQ(
+                                    LABEL if$else040,
+                                    SEQ(
+                                      SEQ(
+                                        CJUMP(LT,
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 28)),
+                                          TEMP %i1,
+                                          if$then036,if$else037),
+                                        SEQ(
+                                          LABEL if$then036,
+                                          SEQ(
+                                            SEQ(
+                                              CJUMP(EQ,
+                                                CALL(
+                                                  NAME Tree$GetHas_Right,
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 4))),
+                                                CONST 1,
+                                                if$then023,if$else024),
+                                              SEQ(
+                                                LABEL if$then023,
+                                                SEQ(
+                                                  SEQ(
+                                                    MOVE(
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 4))),
+                                                    MOVE(
+                                                      MEM(
+                                                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                      CALL(
+                                                        NAME Tree$GetRight,
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 4))))),
+                                                  SEQ(
+                                                    JUMP(NAME if$end025),
+                                                    SEQ(
+                                                      LABEL if$else024,
+                                                      SEQ(
+                                                        MOVE(
+                                                          MEM(
+                                                            BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                          CONST 0),
+                                                        LABEL if$end025)))))),
+                                            SEQ(
+                                              JUMP(NAME if$end038),
+                                              SEQ(
+                                                LABEL if$else037,
+                                                SEQ(
+                                                  SEQ(
+                                                    SEQ(
+                                                      CJUMP(EQ,
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 24)),
+                                                        CONST 1,
+                                                        if$then033,if$else034),
+                                                      SEQ(
+                                                        LABEL if$then033,
+                                                        SEQ(
+                                                          SEQ(
+                                                            CJUMP(EQ,
+                                                              BINOP(AND,
+                                                                RET(
+                                                                  SEQ(
+                                                                    MOVE(TEMP t002, CONST 1),
+                                                                    SEQ(
+                                                                      CJUMP(NE,
+                                                                        CALL(
+                                                                          NAME Tree$GetHas_Right,
+                                                                          MEM(
+                                                                            BINOP(MINUS, TEMP %fp, CONST 4))),
+                                                                        CONST 1,
+                                                                        condExp$true026,condExp$false027),
+                                                                      SEQ(
+                                                                        LABEL condExp$false027,
+                                                                        SEQ(
+                                                                          MOVE(TEMP t002, CONST 0),
+                                                                          LABEL condExp$true026)))),
+                                                                  TEMP t002),
+                                                                RET(
+                                                                  SEQ(
+                                                                    MOVE(TEMP t003, CONST 1),
+                                                                    SEQ(
+                                                                      CJUMP(NE,
+                                                                        CALL(
+                                                                          NAME Tree$GetHas_Left,
+                                                                          MEM(
+                                                                            BINOP(MINUS, TEMP %fp, CONST 4))),
+                                                                        CONST 1,
+                                                                        condExp$true028,condExp$false029),
+                                                                      SEQ(
+                                                                        LABEL condExp$false029,
+                                                                        SEQ(
+                                                                          MOVE(TEMP t003, CONST 0),
+                                                                          LABEL condExp$true028)))),
+                                                                  TEMP t003)),
+                                                              CONST 1,
+                                                              if$then030,if$else031),
+                                                            SEQ(
+                                                              LABEL if$then030,
+                                                              SEQ(
+                                                                MOVE(
+                                                                  MEM(
+                                                                    BINOP(MINUS, TEMP %fp, CONST 20)),
+                                                                  CONST 1),
+                                                                SEQ(
+                                                                  JUMP(NAME if$end032),
+                                                                  SEQ(
+                                                                    LABEL if$else031,
+                                                                    SEQ(
+                                                                      MOVE(
+                                                                        MEM(
+                                                                          BINOP(MINUS, TEMP %fp, CONST 20)),
+                                                                        CALL(
+                                                                          NAME Tree$Remove,
+                                                                          TEMP %i0,
+                                                                          MEM(
+                                                                            BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                                          MEM(
+                                                                            BINOP(MINUS, TEMP %fp, CONST 4)))),
+                                                                      LABEL if$end032)))))),
+                                                          SEQ(
+                                                            JUMP(NAME if$end035),
+                                                            SEQ(
+                                                              LABEL if$else034,
+                                                              SEQ(
+                                                                MOVE(
+                                                                  MEM(
+                                                                    BINOP(MINUS, TEMP %fp, CONST 20)),
+                                                                  CALL(
+                                                                    NAME Tree$Remove,
+                                                                    TEMP %i0,
+                                                                    MEM(
+                                                                      BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                                    MEM(
+                                                                      BINOP(MINUS, TEMP %fp, CONST 4)))),
+                                                                LABEL if$end035)))))),
+                                                    SEQ(
+                                                      MOVE(
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 16)),
+                                                        CONST 1),
+                                                      MOVE(
+                                                        MEM(
+                                                          BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                        CONST 0))),
+                                                  LABEL if$end038)))))),
+                                      LABEL if$end041)))))),
+                          MOVE(
+                            MEM(
+                              BINOP(MINUS, TEMP %fp, CONST 24)),
+                            CONST 0))),
+                      SEQ(
+                        CJUMP(EQ,
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 12)),
+                          CONST 1,
+                          while$body042,while$done043),
+                        LABEL while$done043))))))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 16)))),
+    JUMP(NAME Tree$Delete$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Remove
+SEQ(
+  LABEL Tree$Remove$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        CJUMP(EQ,
+          CALL(
+            NAME Tree$GetHas_Left,
+            TEMP %i2),
+          CONST 1,
+          if$then050,if$else051),
+        SEQ(
+          LABEL if$then050,
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 4)),
+              CALL(
+                NAME Tree$RemoveLeft,
+                TEMP %i0,
+                TEMP %i1,
+                TEMP %i2)),
+            SEQ(
+              JUMP(NAME if$end052),
+              SEQ(
+                LABEL if$else051,
+                SEQ(
+                  SEQ(
+                    CJUMP(EQ,
+                      CALL(
+                        NAME Tree$GetHas_Right,
+                        TEMP %i2),
+                      CONST 1,
+                      if$then047,if$else048),
+                    SEQ(
+                      LABEL if$then047,
+                      SEQ(
+                        MOVE(
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 4)),
+                          CALL(
+                            NAME Tree$RemoveRight,
+                            TEMP %i0,
+                            TEMP %i1,
+                            TEMP %i2)),
+                        SEQ(
+                          JUMP(NAME if$end049),
+                          SEQ(
+                            LABEL if$else048,
+                            SEQ(
+                              SEQ(
+                                MOVE(
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 8)),
+                                  CALL(
+                                    NAME Tree$GetKey,
+                                    TEMP %i2)),
+                                SEQ(
+                                  MOVE(
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 12)),
+                                    CALL(
+                                      NAME Tree$GetKey,
+                                      CALL(
+                                        NAME Tree$GetLeft,
+                                        TEMP %i1))),
+                                  SEQ(
+                                    CJUMP(EQ,
+                                      CALL(
+                                        NAME Tree$Compare,
+                                        TEMP %i0,
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 8)),
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 12))),
+                                      CONST 1,
+                                      if$then044,if$else045),
+                                    SEQ(
+                                      LABEL if$then044,
+                                      SEQ(
+                                        SEQ(
+                                          MOVE(
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 4)),
+                                            CALL(
+                                              NAME Tree$SetLeft,
+                                              TEMP %i1,
+                                              MEM(
+                                                BINOP(PLUS, TEMP %i0, CONST 20)))),
+                                          MOVE(
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 4)),
+                                            CALL(
+                                              NAME Tree$SetHas_Left,
+                                              TEMP %i1,
+                                              CONST 0))),
+                                        SEQ(
+                                          JUMP(NAME if$end046),
+                                          SEQ(
+                                            LABEL if$else045,
+                                            SEQ(
+                                              SEQ(
+                                                MOVE(
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                  CALL(
+                                                    NAME Tree$SetRight,
+                                                    TEMP %i1,
+                                                    MEM(
+                                                      BINOP(PLUS, TEMP %i0, CONST 20)))),
+                                                MOVE(
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                                                  CALL(
+                                                    NAME Tree$SetHas_Right,
+                                                    TEMP %i1,
+                                                    CONST 0))),
+                                              LABEL if$end046)))))))),
+                              LABEL if$end049)))))),
+                  LABEL if$end052)))))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$Remove$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$RemoveRight
+SEQ(
+  LABEL Tree$RemoveRight$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        SEQ(
+          CJUMP(EQ,
+            CALL(
+              NAME Tree$GetHas_Right,
+              TEMP %i2),
+            CONST 1,
+            while$body053,while$done054),
+          SEQ(
+            LABEL while$body053,
+            SEQ(
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CALL(
+                    NAME Tree$SetKey,
+                    TEMP %i2,
+                    CALL(
+                      NAME Tree$GetKey,
+                      CALL(
+                        NAME Tree$GetRight,
+                        TEMP %i2)))),
+                SEQ(
+                  MOVE(TEMP %i1, TEMP %i2),
+                  MOVE(
+                    TEMP %i2,
+                    CALL(
+                      NAME Tree$GetRight,
+                      TEMP %i2)))),
+              SEQ(
+                CJUMP(EQ,
+                  CALL(
+                    NAME Tree$GetHas_Right,
+                    TEMP %i2),
+                  CONST 1,
+                  while$body053,while$done054),
+                LABEL while$done054)))),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 4)),
+            CALL(
+              NAME Tree$SetRight,
+              TEMP %i1,
+              MEM(
+                BINOP(PLUS, TEMP %i0, CONST 20)))),
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 4)),
+            CALL(
+              NAME Tree$SetHas_Right,
+              TEMP %i1,
+              CONST 0)))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$RemoveRight$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$RemoveLeft
+SEQ(
+  LABEL Tree$RemoveLeft$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        SEQ(
+          CJUMP(EQ,
+            CALL(
+              NAME Tree$GetHas_Left,
+              TEMP %i2),
+            CONST 1,
+            while$body055,while$done056),
+          SEQ(
+            LABEL while$body055,
+            SEQ(
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CALL(
+                    NAME Tree$SetKey,
+                    TEMP %i2,
+                    CALL(
+                      NAME Tree$GetKey,
+                      CALL(
+                        NAME Tree$GetLeft,
+                        TEMP %i2)))),
+                SEQ(
+                  MOVE(TEMP %i1, TEMP %i2),
+                  MOVE(
+                    TEMP %i2,
+                    CALL(
+                      NAME Tree$GetLeft,
+                      TEMP %i2)))),
+              SEQ(
+                CJUMP(EQ,
+                  CALL(
+                    NAME Tree$GetHas_Left,
+                    TEMP %i2),
+                  CONST 1,
+                  while$body055,while$done056),
+                LABEL while$done056)))),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 4)),
+            CALL(
+              NAME Tree$SetLeft,
+              TEMP %i1,
+              MEM(
+                BINOP(PLUS, TEMP %i0, CONST 20)))),
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 4)),
+            CALL(
+              NAME Tree$SetHas_Left,
+              TEMP %i1,
+              CONST 0)))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$RemoveLeft$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Search
+SEQ(
+  LABEL Tree$Search$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          TEMP %i0),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 12)),
+            CONST 1),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 8)),
+              CONST 0),
+            SEQ(
+              CJUMP(EQ,
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                CONST 1,
+                while$body069,while$done070),
+              SEQ(
+                LABEL while$body069,
+                SEQ(
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 16)),
+                      CALL(
+                        NAME Tree$GetKey,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 4)))),
+                    SEQ(
+                      CJUMP(LT,
+                        TEMP %i1,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 16)),
+                        if$then066,if$else067),
+                      SEQ(
+                        LABEL if$then066,
+                        SEQ(
+                          SEQ(
+                            CJUMP(EQ,
+                              CALL(
+                                NAME Tree$GetHas_Left,
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 4))),
+                              CONST 1,
+                              if$then057,if$else058),
+                            SEQ(
+                              LABEL if$then057,
+                              SEQ(
+                                MOVE(
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                                  CALL(
+                                    NAME Tree$GetLeft,
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 4)))),
+                                SEQ(
+                                  JUMP(NAME if$end059),
+                                  SEQ(
+                                    LABEL if$else058,
+                                    SEQ(
+                                      MOVE(
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 12)),
+                                        CONST 0),
+                                      LABEL if$end059)))))),
+                          SEQ(
+                            JUMP(NAME if$end068),
+                            SEQ(
+                              LABEL if$else067,
+                              SEQ(
+                                SEQ(
+                                  CJUMP(LT,
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 16)),
+                                    TEMP %i1,
+                                    if$then063,if$else064),
+                                  SEQ(
+                                    LABEL if$then063,
+                                    SEQ(
+                                      SEQ(
+                                        CJUMP(EQ,
+                                          CALL(
+                                            NAME Tree$GetHas_Right,
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 4))),
+                                          CONST 1,
+                                          if$then060,if$else061),
+                                        SEQ(
+                                          LABEL if$then060,
+                                          SEQ(
+                                            MOVE(
+                                              MEM(
+                                                BINOP(MINUS, TEMP %fp, CONST 4)),
+                                              CALL(
+                                                NAME Tree$GetRight,
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 4)))),
+                                            SEQ(
+                                              JUMP(NAME if$end062),
+                                              SEQ(
+                                                LABEL if$else061,
+                                                SEQ(
+                                                  MOVE(
+                                                    MEM(
+                                                      BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                    CONST 0),
+                                                  LABEL if$end062)))))),
+                                      SEQ(
+                                        JUMP(NAME if$end065),
+                                        SEQ(
+                                          LABEL if$else064,
+                                          SEQ(
+                                            SEQ(
+                                              MOVE(
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 8)),
+                                                CONST 1),
+                                              MOVE(
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                CONST 0)),
+                                            LABEL if$end065)))))),
+                                LABEL if$end068))))))),
+                  SEQ(
+                    CJUMP(EQ,
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 12)),
+                      CONST 1,
+                      while$body069,while$done070),
+                    LABEL while$done070))))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 8)))),
+    JUMP(NAME Tree$Search$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$Print
+SEQ(
+  LABEL Tree$Print$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 8)),
+          TEMP %i0),
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CALL(
+            NAME Tree$RecPrint,
+            TEMP %i0,
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8))))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$Print$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$RecPrint
+SEQ(
+  LABEL Tree$RecPrint$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        SEQ(
+          CJUMP(EQ,
+            CALL(
+              NAME Tree$GetHas_Left,
+              TEMP %i1),
+            CONST 1,
+            if$then071,if$else072),
+          SEQ(
+            LABEL if$then071,
+            SEQ(
+              MOVE(
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 4)),
+                CALL(
+                  NAME Tree$RecPrint,
+                  TEMP %i0,
+                  CALL(
+                    NAME Tree$GetLeft,
+                    TEMP %i1))),
+              SEQ(
+                JUMP(NAME if$end073),
+                SEQ(
+                  LABEL if$else072,
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      CONST 1),
+                    LABEL if$end073)))))),
+        SEQ(
+          EVAL(
+            CALL(
+              NAME print_int,
+              CALL(
+                NAME Tree$GetKey,
+                TEMP %i1))),
+          SEQ(
+            CJUMP(EQ,
+              CALL(
+                NAME Tree$GetHas_Right,
+                TEMP %i1),
+              CONST 1,
+              if$then074,if$else075),
+            SEQ(
+              LABEL if$then074,
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CALL(
+                    NAME Tree$RecPrint,
+                    TEMP %i0,
+                    CALL(
+                      NAME Tree$GetRight,
+                      TEMP %i1))),
+                SEQ(
+                  JUMP(NAME if$end076),
+                  SEQ(
+                    LABEL if$else075,
+                    SEQ(
+                      MOVE(
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                        CONST 1),
+                      LABEL if$end076)))))))),
+      MOVE(TEMP %i0, CONST 1)),
+    JUMP(NAME Tree$RecPrint$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Tree$accept
+SEQ(
+  LABEL Tree$accept$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        EVAL(
+          CALL(
+            NAME print_int,
+            CONST 333)),
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CALL(
+            NAME Visitor$visit,
+            TEMP %i1,
+            TEMP %i0))),
+      MOVE(TEMP %i0, CONST 0)),
+    JUMP(NAME Tree$accept$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Visitor$visit
+SEQ(
+  LABEL Visitor$visit$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        SEQ(
+          CJUMP(EQ,
+            CALL(
+              NAME Tree$GetHas_Right,
+              TEMP %i1),
+            CONST 1,
+            if$then077,if$else078),
+          SEQ(
+            LABEL if$then077,
+            SEQ(
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(PLUS, TEMP %i0, CONST 4)),
+                  CALL(
+                    NAME Tree$GetRight,
+                    TEMP %i1)),
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CALL(
+                    NAME Tree$accept,
+                    MEM(
+                      BINOP(PLUS, TEMP %i0, CONST 4)),
+                    TEMP %i0))),
+              SEQ(
+                JUMP(NAME if$end079),
+                SEQ(
+                  LABEL if$else078,
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      CONST 0),
+                    LABEL if$end079)))))),
+        SEQ(
+          CJUMP(EQ,
+            CALL(
+              NAME Tree$GetHas_Left,
+              TEMP %i1),
+            CONST 1,
+            if$then080,if$else081),
+          SEQ(
+            LABEL if$then080,
+            SEQ(
+              SEQ(
+                MOVE(
+                  MEM(TEMP %i0),
+                  CALL(
+                    NAME Tree$GetLeft,
+                    TEMP %i1)),
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CALL(
+                    NAME Tree$accept,
+                    MEM(TEMP %i0),
+                    TEMP %i0))),
+              SEQ(
+                JUMP(NAME if$end082),
+                SEQ(
+                  LABEL if$else081,
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      CONST 0),
+                    LABEL if$end082))))))),
+      MOVE(TEMP %i0, CONST 0)),
+    JUMP(NAME Visitor$visit$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment MyVisitor$visit
+SEQ(
+  LABEL MyVisitor$visit$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        SEQ(
+          CJUMP(EQ,
+            CALL(
+              NAME Tree$GetHas_Right,
+              TEMP %i1),
+            CONST 1,
+            if$then083,if$else084),
+          SEQ(
+            LABEL if$then083,
+            SEQ(
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(PLUS, TEMP %i0, CONST 4)),
+                  CALL(
+                    NAME Tree$GetRight,
+                    TEMP %i1)),
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CALL(
+                    NAME Tree$accept,
+                    MEM(
+                      BINOP(PLUS, TEMP %i0, CONST 4)),
+                    TEMP %i0))),
+              SEQ(
+                JUMP(NAME if$end085),
+                SEQ(
+                  LABEL if$else084,
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      CONST 0),
+                    LABEL if$end085)))))),
+        SEQ(
+          EVAL(
+            CALL(
+              NAME print_int,
+              CALL(
+                NAME Tree$GetKey,
+                TEMP %i1))),
+          SEQ(
+            CJUMP(EQ,
+              CALL(
+                NAME Tree$GetHas_Left,
+                TEMP %i1),
+              CONST 1,
+              if$then086,if$else087),
+            SEQ(
+              LABEL if$then086,
+              SEQ(
+                SEQ(
+                  MOVE(
+                    MEM(TEMP %i0),
+                    CALL(
+                      NAME Tree$GetLeft,
+                      TEMP %i1)),
+                  MOVE(
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                    CALL(
+                      NAME Tree$accept,
+                      MEM(TEMP %i0),
+                      TEMP %i0))),
+                SEQ(
+                  JUMP(NAME if$end088),
+                  SEQ(
+                    LABEL if$else087,
+                    SEQ(
+                      MOVE(
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                        CONST 0),
+                      LABEL if$end088)))))))),
+      MOVE(TEMP %i0, CONST 0)),
+    JUMP(NAME MyVisitor$visit$epilogBegin)))
+!	End fragment
+

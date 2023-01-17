@@ -1,0 +1,10 @@
+Instruction
+   COMMENT, LABEL, MOVE, OPER
+   Comment, LabelInstruction, Move, OperationInstruction
+   
+
+Do we need a subclass of OperationInstruction for JumpInstruction?
+
+It seems we need more information about instructions to do peephole
+type optimizatins.
+

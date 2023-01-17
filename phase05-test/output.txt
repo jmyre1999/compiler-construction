@@ -1,0 +1,162 @@
+TreeVisitor
+ FIELDS
+ METHODS
+    main void
+       PARAMS
+          a String[]
+       LOCALS
+TV
+ FIELDS
+ METHODS
+    Start int
+       PARAMS
+       LOCALS
+          nti int
+          v MyVisitor
+          root Tree
+          ntb boolean
+Visitor
+ FIELDS
+    r Tree
+    l Tree
+ METHODS
+    visit int
+       PARAMS
+          n Tree
+       LOCALS
+          nti int
+MyExtendedVisitor
+ FIELDS
+ METHODS
+    visit int
+       PARAMS
+          n Tree
+       LOCALS
+          nti int
+Tree
+ FIELDS
+    left Tree
+    has_right boolean
+    my_null Tree
+    right Tree
+    has_left boolean
+    key int
+ METHODS
+    Delete boolean
+       PARAMS
+          v_key int
+       LOCALS
+          current_node Tree
+          found boolean
+          parent_node Tree
+          cont boolean
+          is_root boolean
+          ntb boolean
+          key_aux int
+    SetHas_Left boolean
+       PARAMS
+          val boolean
+       LOCALS
+    RemoveLeft boolean
+       PARAMS
+          c_node Tree
+          p_node Tree
+       LOCALS
+          ntb boolean
+    GetKey int
+       PARAMS
+       LOCALS
+    SetRight boolean
+       PARAMS
+          rn Tree
+       LOCALS
+    GetLeft Tree
+       PARAMS
+       LOCALS
+    GetRight Tree
+       PARAMS
+       LOCALS
+    Remove boolean
+       PARAMS
+          c_node Tree
+          p_node Tree
+       LOCALS
+          auxkey1 int
+          auxkey2 int
+          ntb boolean
+    SetLeft boolean
+       PARAMS
+          ln Tree
+       LOCALS
+    Insert boolean
+       PARAMS
+          v_key int
+       LOCALS
+          current_node Tree
+          new_node Tree
+          cont boolean
+          ntb boolean
+          key_aux int
+    accept int
+       PARAMS
+          v Visitor
+       LOCALS
+          nti int
+    Print boolean
+       PARAMS
+       LOCALS
+          current_node Tree
+          ntb boolean
+    Init boolean
+       PARAMS
+          v_key int
+       LOCALS
+    GetHas_Right boolean
+       PARAMS
+       LOCALS
+    GetHas_Left boolean
+       PARAMS
+       LOCALS
+    RemoveRight boolean
+       PARAMS
+          c_node Tree
+          p_node Tree
+       LOCALS
+          ntb boolean
+    Search int
+       PARAMS
+          v_key int
+       LOCALS
+          current_node Tree
+          ifound int
+          cont boolean
+          key_aux int
+    SetKey boolean
+       PARAMS
+          v_key int
+       LOCALS
+    Compare boolean
+       PARAMS
+          num1 int
+          num2 int
+       LOCALS
+          nti int
+          ntb boolean
+    SetHas_Right boolean
+       PARAMS
+          val boolean
+       LOCALS
+    RecPrint boolean
+       PARAMS
+          node Tree
+       LOCALS
+          ntb boolean
+MyVisitor
+ FIELDS
+ METHODS
+    visit int
+       PARAMS
+          n Tree
+       LOCALS
+          nti int
+filename=../test_cases/TreeVisitor.java, errors=12

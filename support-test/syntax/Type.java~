@@ -1,0 +1,50 @@
+/*
+ * Florida Tech, CSE4251: Compiler Design.  Part of the compiler project from
+ * "Modern Compiler Implementation in Java," 2nd edition, by Andrew W. Appel.
+ */
+package syntax;
+
+/*
+  The concrete subclasses are:
+     IdentifierType
+     IntArrayType
+     VoidType
+     BooleanType
+     IntegerType
+
+  No method can return "void" in MiniJava.
+
+  Maybe a concrete class for all primitive types would simplify
+  the visiter interface.
+ */
+
+public abstract class Type extends AST {
+
+   // We lose the position of the unique predefined types this way.
+   public final static IntArrayType THE_INT_ARRAY_TYPE = new IntArrayType ();
+   public final static IntegerType THE_INTEGER_TYPE = new IntegerType ();
+   public final static BooleanType THE_BOOLEAN_TYPE = new BooleanType ();
+   public final static VoidType  THE_VOID_TYPE = new VoidType ();
+
+   protected Type () { super (0,0); }
+   protected Type (final int l, final int c) { super (l,c); }
+
+   public String getName () { return toString(); }
+
+   /*
+     4.3.2. Field Descriptors
+     https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html
+
+     Descriptors are used to represent the types of fields and methods
+     internally.
+
+     For instance
+
+     (IDLSomeClassName;B)LOtherClassName;
+
+     corresponds to the signature of a method with three arguments:
+     int, double, "SomeClassName", boolean; which returns on object of
+     type "OtherClassName".
+   */
+   abstract public String fieldDescriptor ();
+}

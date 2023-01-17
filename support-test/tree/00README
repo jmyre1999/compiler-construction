@@ -1,0 +1,31 @@
+It use to be that this package depended on a package called 'temp' and
+required specific classes in order to compile.  The package 'temp' was
+not provided to students and does evolve as the compiler progresses.
+
+The package 'tree' depended on the class: temp.Temp and temp.Label.
+
+The class TreePrint no longer depends on temp.TempMap (an interface) and
+temp.DefaultMap.  But it does depend on temp.Tem.
+
+
+Overview of the structure of the package 'tree':
+
+abstract class Exp
+  class CONST (int value)
+  class NAME  (temp.Label label)
+  class TEMP  (temp.Temp temp)
+  class BINOP (int binop, Exp left, Exp right)
+  class MEM   (Exp exp)
+  class CALL  (Exp fun, ExpList args)
+  class ESEQ  (Stm stm, Exp exp)
+
+abstract class Stm
+  class MOVE  (Exp dst, Exp src)
+  class EVAL  (Exp exp)             // Was called EXP
+  class JUMP  (Exp exp, temp.Label target)
+  class CJUMP (int rel,Exp l,Exp r, temp.Label t, temp.Label f)
+  class SEQ   (Stm left, Stm right)
+  class LABEL (Label label)
+
+ExpList (Exp head, ExpList tail)
+

@@ -1,0 +1,56 @@
+!	Procedure fragment Factorial$main
+SEQ(
+  LABEL Factorial$main$preludeEnd,
+  SEQ(
+    EVAL(
+      CALL(
+        NAME print_int,
+        CALL(
+          NAME Fac$ComputeFac,
+          CALL(
+            NAME alloc_object,
+            CONST 0),
+          CONST 10))),
+    JUMP(NAME Factorial$main$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment Fac$ComputeFac
+SEQ(
+  LABEL Fac$ComputeFac$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        CJUMP(LT,
+          TEMP %i1,
+          CONST 1,
+          if$then001,if$else002),
+        SEQ(
+          LABEL if$then001,
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 4)),
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 8))),
+            SEQ(
+              JUMP(NAME if$end003),
+              SEQ(
+                LABEL if$else002,
+                SEQ(
+                  MOVE(
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                    BINOP(MUL,
+                      TEMP %i1,
+                      CALL(
+                        NAME Fac$ComputeFac,
+                        TEMP %i0,
+                        BINOP(MINUS, TEMP %i1, CONST 1)))),
+                  LABEL if$end003)))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 4)))),
+    JUMP(NAME Fac$ComputeFac$epilogBegin)))
+!	End fragment
+

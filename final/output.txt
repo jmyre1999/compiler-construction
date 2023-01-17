@@ -1,0 +1,69 @@
+LABEL Factorial$main$preludeEnd
+
+MOVE(
+  TEMP call002,
+  CALL(
+    NAME malloc,
+    CONST 0))
+
+MOVE(
+  TEMP call001,
+  CALL(
+    NAME Fac$ComputeFac,
+    TEMP call002,
+    CONST 10))
+
+EVAL(
+  CALL(
+    NAME print_int,
+    TEMP call001))
+
+JUMP(NAME Factorial$main$epilogBegin)
+
+LABEL Fac$ComputeFac$preludeEnd
+
+CJUMP(LT,
+  TEMP %i1,
+  CONST 1,
+  if$then001,if$else002)
+
+LABEL if$else002
+
+MOVE(
+  TEMP hoist008,
+  BINOP(MINUS, TEMP %fp, CONST 4))
+
+MOVE(TEMP hoist007, TEMP %i1)
+
+MOVE(
+  TEMP call006,
+  CALL(
+    NAME Fac$ComputeFac,
+    TEMP %i0,
+    BINOP(MINUS, TEMP %i1, CONST 1)))
+
+MOVE(
+  MEM(TEMP hoist008),
+  BINOP(MUL, TEMP hoist007, TEMP call006))
+
+JUMP(NAME if$end003)
+
+LABEL if$end003
+
+MOVE(
+  TEMP %i0,
+  MEM(
+    BINOP(MINUS, TEMP %fp, CONST 4)))
+
+JUMP(NAME Fac$ComputeFac$epilogBegin)
+
+LABEL if$then001
+
+MOVE(
+  MEM(
+    BINOP(MINUS, TEMP %fp, CONST 4)),
+  CONST 1)
+
+JUMP(NAME if$end003)
+
+filename=../test_cases/Factorial.java, errors=0

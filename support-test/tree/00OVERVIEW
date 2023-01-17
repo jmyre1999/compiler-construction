@@ -1,0 +1,7 @@
+Names:  NameOfTemp, NameOfLabel
+
+Stm
+  Concrete subclasses:  MOVE, EVAL, JUMP, CJUMP, SEQ, LABEL
+
+Exp
+  Concrete subclass: BINOP, CALL, CONST, ESEQ, MEM, NAME, TEMP

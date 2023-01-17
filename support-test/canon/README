@@ -1,0 +1,14 @@
+This package unfortunately depends on a package called 'temp' and
+requires specific classes in order to compile.  The package 'temp'
+is not provided to students and does evolve as the compiler progresses.
+
+The requirements of package 'canon' are:
+
+temp.Temp ()               no-argument constructor which generates a unique "temp"
+temp.Label (String name)   a constructor which generates a unique "label"; the
+                           string is presumable used in the label to help debug
+                           IR code.
+
+This package has been heavily modified from the original from Appel's book.
+
+Ryan Stansifer

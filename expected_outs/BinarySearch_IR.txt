@@ -1,0 +1,740 @@
+!	Procedure fragment BinarySearch$main
+SEQ(
+  LABEL BinarySearch$main$preludeEnd,
+  SEQ(
+    EVAL(
+      CALL(
+        NAME print_int,
+        CALL(
+          NAME BS$Start,
+          CALL(
+            NAME alloc_object,
+            CONST 8),
+          CONST 20))),
+    JUMP(NAME BinarySearch$main$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment BS$Start
+SEQ(
+  LABEL BS$Start$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CALL(
+            NAME BS$Init,
+            TEMP %i0,
+            TEMP %i1)),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            CALL(
+              NAME BS$Print,
+              TEMP %i0)),
+          SEQ(
+            SEQ(
+              CJUMP(EQ,
+                CALL(
+                  NAME BS$Search,
+                  TEMP %i0,
+                  CONST 8),
+                CONST 1,
+                if$then001,if$else002),
+              SEQ(
+                LABEL if$then001,
+                SEQ(
+                  EVAL(
+                    CALL(
+                      NAME print_int,
+                      CONST 1)),
+                  SEQ(
+                    JUMP(NAME if$end003),
+                    SEQ(
+                      LABEL if$else002,
+                      SEQ(
+                        EVAL(
+                          CALL(
+                            NAME print_int,
+                            CONST 0)),
+                        LABEL if$end003)))))),
+            SEQ(
+              SEQ(
+                CJUMP(EQ,
+                  CALL(
+                    NAME BS$Search,
+                    TEMP %i0,
+                    CONST 19),
+                  CONST 1,
+                  if$then004,if$else005),
+                SEQ(
+                  LABEL if$then004,
+                  SEQ(
+                    EVAL(
+                      CALL(
+                        NAME print_int,
+                        CONST 1)),
+                    SEQ(
+                      JUMP(NAME if$end006),
+                      SEQ(
+                        LABEL if$else005,
+                        SEQ(
+                          EVAL(
+                            CALL(
+                              NAME print_int,
+                              CONST 0)),
+                          LABEL if$end006)))))),
+              SEQ(
+                SEQ(
+                  CJUMP(EQ,
+                    CALL(
+                      NAME BS$Search,
+                      TEMP %i0,
+                      CONST 20),
+                    CONST 1,
+                    if$then007,if$else008),
+                  SEQ(
+                    LABEL if$then007,
+                    SEQ(
+                      EVAL(
+                        CALL(
+                          NAME print_int,
+                          CONST 1)),
+                      SEQ(
+                        JUMP(NAME if$end009),
+                        SEQ(
+                          LABEL if$else008,
+                          SEQ(
+                            EVAL(
+                              CALL(
+                                NAME print_int,
+                                CONST 0)),
+                            LABEL if$end009)))))),
+                SEQ(
+                  SEQ(
+                    CJUMP(EQ,
+                      CALL(
+                        NAME BS$Search,
+                        TEMP %i0,
+                        CONST 21),
+                      CONST 1,
+                      if$then010,if$else011),
+                    SEQ(
+                      LABEL if$then010,
+                      SEQ(
+                        EVAL(
+                          CALL(
+                            NAME print_int,
+                            CONST 1)),
+                        SEQ(
+                          JUMP(NAME if$end012),
+                          SEQ(
+                            LABEL if$else011,
+                            SEQ(
+                              EVAL(
+                                CALL(
+                                  NAME print_int,
+                                  CONST 0)),
+                              LABEL if$end012)))))),
+                  SEQ(
+                    SEQ(
+                      CJUMP(EQ,
+                        CALL(
+                          NAME BS$Search,
+                          TEMP %i0,
+                          CONST 37),
+                        CONST 1,
+                        if$then013,if$else014),
+                      SEQ(
+                        LABEL if$then013,
+                        SEQ(
+                          EVAL(
+                            CALL(
+                              NAME print_int,
+                              CONST 1)),
+                          SEQ(
+                            JUMP(NAME if$end015),
+                            SEQ(
+                              LABEL if$else014,
+                              SEQ(
+                                EVAL(
+                                  CALL(
+                                    NAME print_int,
+                                    CONST 0)),
+                                LABEL if$end015)))))),
+                    SEQ(
+                      SEQ(
+                        CJUMP(EQ,
+                          CALL(
+                            NAME BS$Search,
+                            TEMP %i0,
+                            CONST 38),
+                          CONST 1,
+                          if$then016,if$else017),
+                        SEQ(
+                          LABEL if$then016,
+                          SEQ(
+                            EVAL(
+                              CALL(
+                                NAME print_int,
+                                CONST 1)),
+                            SEQ(
+                              JUMP(NAME if$end018),
+                              SEQ(
+                                LABEL if$else017,
+                                SEQ(
+                                  EVAL(
+                                    CALL(
+                                      NAME print_int,
+                                      CONST 0)),
+                                  LABEL if$end018)))))),
+                      SEQ(
+                        SEQ(
+                          CJUMP(EQ,
+                            CALL(
+                              NAME BS$Search,
+                              TEMP %i0,
+                              CONST 39),
+                            CONST 1,
+                            if$then019,if$else020),
+                          SEQ(
+                            LABEL if$then019,
+                            SEQ(
+                              EVAL(
+                                CALL(
+                                  NAME print_int,
+                                  CONST 1)),
+                              SEQ(
+                                JUMP(NAME if$end021),
+                                SEQ(
+                                  LABEL if$else020,
+                                  SEQ(
+                                    EVAL(
+                                      CALL(
+                                        NAME print_int,
+                                        CONST 0)),
+                                    LABEL if$end021)))))),
+                        SEQ(
+                          CJUMP(EQ,
+                            CALL(
+                              NAME BS$Search,
+                              TEMP %i0,
+                              CONST 50),
+                            CONST 1,
+                            if$then022,if$else023),
+                          SEQ(
+                            LABEL if$then022,
+                            SEQ(
+                              EVAL(
+                                CALL(
+                                  NAME print_int,
+                                  CONST 1)),
+                              SEQ(
+                                JUMP(NAME if$end024),
+                                SEQ(
+                                  LABEL if$else023,
+                                  SEQ(
+                                    EVAL(
+                                      CALL(
+                                        NAME print_int,
+                                        CONST 0)),
+                                    LABEL if$end024))))))))))))))),
+      MOVE(TEMP %i0, CONST 999)),
+    JUMP(NAME BS$Start$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment BS$Search
+SEQ(
+  LABEL BS$Search$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 24)),
+          CONST 0),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 4)),
+            CONST 0),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 8)),
+              MEM(TEMP %i0)),
+            SEQ(
+              MOVE(
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 8)),
+                BINOP(MINUS,
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 8)),
+                  CONST 1)),
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 12)),
+                  CONST 0),
+                SEQ(
+                  MOVE(
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 16)),
+                    CONST 1),
+                  SEQ(
+                    SEQ(
+                      CJUMP(EQ,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 16)),
+                        CONST 1,
+                        while$body034,while$done035),
+                      SEQ(
+                        LABEL while$body034,
+                        SEQ(
+                          SEQ(
+                            MOVE(
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 20)),
+                              BINOP(PLUS,
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 8)))),
+                            SEQ(
+                              MOVE(
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 20)),
+                                CALL(
+                                  NAME BS$Div,
+                                  TEMP %i0,
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 20)))),
+                              SEQ(
+                                MOVE(
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 24)),
+                                  MEM(
+                                    BINOP(PLUS,
+                                      MEM(TEMP %i0),
+                                      BINOP(MUL,
+                                        BINOP(PLUS,
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 20)),
+                                          CONST 1),
+                                        CONST 4)))),
+                                SEQ(
+                                  SEQ(
+                                    CJUMP(LT,
+                                      TEMP %i1,
+                                      MEM(
+                                        BINOP(MINUS, TEMP %fp, CONST 24)),
+                                      if$then025,if$else026),
+                                    SEQ(
+                                      LABEL if$then025,
+                                      SEQ(
+                                        MOVE(
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 8)),
+                                          BINOP(MINUS,
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 20)),
+                                            CONST 1)),
+                                        SEQ(
+                                          JUMP(NAME if$end027),
+                                          SEQ(
+                                            LABEL if$else026,
+                                            SEQ(
+                                              MOVE(
+                                                MEM(
+                                                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                                                BINOP(PLUS,
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 20)),
+                                                  CONST 1)),
+                                              LABEL if$end027)))))),
+                                  SEQ(
+                                    SEQ(
+                                      CJUMP(EQ,
+                                        CALL(
+                                          NAME BS$Compare,
+                                          TEMP %i0,
+                                          MEM(
+                                            BINOP(MINUS, TEMP %fp, CONST 24)),
+                                          TEMP %i1),
+                                        CONST 1,
+                                        if$then028,if$else029),
+                                      SEQ(
+                                        LABEL if$then028,
+                                        SEQ(
+                                          MOVE(
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 16)),
+                                            CONST 0),
+                                          SEQ(
+                                            JUMP(NAME if$end030),
+                                            SEQ(
+                                              LABEL if$else029,
+                                              SEQ(
+                                                MOVE(
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 16)),
+                                                  CONST 1),
+                                                LABEL if$end030)))))),
+                                    SEQ(
+                                      CJUMP(LT,
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 8)),
+                                        MEM(
+                                          BINOP(MINUS, TEMP %fp, CONST 12)),
+                                        if$then031,if$else032),
+                                      SEQ(
+                                        LABEL if$then031,
+                                        SEQ(
+                                          MOVE(
+                                            MEM(
+                                              BINOP(MINUS, TEMP %fp, CONST 16)),
+                                            CONST 0),
+                                          SEQ(
+                                            JUMP(NAME if$end033),
+                                            SEQ(
+                                              LABEL if$else032,
+                                              SEQ(
+                                                MOVE(
+                                                  MEM(
+                                                    BINOP(MINUS, TEMP %fp, CONST 28)),
+                                                  CONST 0),
+                                                LABEL if$end033))))))))))),
+                          SEQ(
+                            CJUMP(EQ,
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 16)),
+                              CONST 1,
+                              while$body034,while$done035),
+                            LABEL while$done035)))),
+                    SEQ(
+                      CJUMP(EQ,
+                        CALL(
+                          NAME BS$Compare,
+                          TEMP %i0,
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 24)),
+                          TEMP %i1),
+                        CONST 1,
+                        if$then036,if$else037),
+                      SEQ(
+                        LABEL if$then036,
+                        SEQ(
+                          MOVE(
+                            MEM(
+                              BINOP(MINUS, TEMP %fp, CONST 4)),
+                            CONST 1),
+                          SEQ(
+                            JUMP(NAME if$end038),
+                            SEQ(
+                              LABEL if$else037,
+                              SEQ(
+                                MOVE(
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                                  CONST 0),
+                                LABEL if$end038))))))))))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 4)))),
+    JUMP(NAME BS$Search$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment BS$Div
+SEQ(
+  LABEL BS$Div$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CONST 0),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            CONST 0),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 12)),
+              BINOP(MINUS, TEMP %i1, CONST 1)),
+            SEQ(
+              CJUMP(LT,
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 8)),
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 12)),
+                while$body039,while$done040),
+              SEQ(
+                LABEL while$body039,
+                SEQ(
+                  SEQ(
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      BINOP(PLUS,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                        CONST 1)),
+                    MOVE(
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 8)),
+                      BINOP(PLUS,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 8)),
+                        CONST 2))),
+                  SEQ(
+                    CJUMP(LT,
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 8)),
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 12)),
+                      while$body039,while$done040),
+                    LABEL while$done040))))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 4)))),
+    JUMP(NAME BS$Div$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment BS$Compare
+SEQ(
+  LABEL BS$Compare$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CONST 0),
+        SEQ(
+          MOVE(
+            MEM(
+              BINOP(MINUS, TEMP %fp, CONST 8)),
+            BINOP(PLUS, TEMP %i2, CONST 1)),
+          SEQ(
+            CJUMP(LT,
+              TEMP %i1,
+              TEMP %i2,
+              if$then046,if$else047),
+            SEQ(
+              LABEL if$then046,
+              SEQ(
+                MOVE(
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  CONST 0),
+                SEQ(
+                  JUMP(NAME if$end048),
+                  SEQ(
+                    LABEL if$else047,
+                    SEQ(
+                      SEQ(
+                        CJUMP(NE,
+                          RET(
+                            SEQ(
+                              MOVE(TEMP t001, CONST 1),
+                              SEQ(
+                                CJUMP(LT,
+                                  TEMP %i1,
+                                  MEM(
+                                    BINOP(MINUS, TEMP %fp, CONST 8)),
+                                  condExp$true041,condExp$false042),
+                                SEQ(
+                                  LABEL condExp$false042,
+                                  SEQ(
+                                    MOVE(TEMP t001, CONST 0),
+                                    LABEL condExp$true041)))),
+                            TEMP t001),
+                          CONST 1,
+                          if$then043,if$else044),
+                        SEQ(
+                          LABEL if$then043,
+                          SEQ(
+                            MOVE(
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 4)),
+                              CONST 0),
+                            SEQ(
+                              JUMP(NAME if$end045),
+                              SEQ(
+                                LABEL if$else044,
+                                SEQ(
+                                  MOVE(
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                                    CONST 1),
+                                  LABEL if$end045)))))),
+                      LABEL if$end048)))))))),
+      MOVE(
+        TEMP %i0,
+        MEM(
+          BINOP(MINUS, TEMP %fp, CONST 4)))),
+    JUMP(NAME BS$Compare$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment BS$Print
+SEQ(
+  LABEL BS$Print$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(MINUS, TEMP %fp, CONST 4)),
+          CONST 1),
+        SEQ(
+          SEQ(
+            CJUMP(LT,
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 4)),
+              MEM(
+                BINOP(PLUS, TEMP %i0, CONST 4)),
+              while$body049,while$done050),
+            SEQ(
+              LABEL while$body049,
+              SEQ(
+                SEQ(
+                  EVAL(
+                    CALL(
+                      NAME print_int,
+                      MEM(
+                        BINOP(PLUS,
+                          MEM(TEMP %i0),
+                          BINOP(MUL,
+                            BINOP(PLUS,
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 4)),
+                              CONST 1),
+                            CONST 4))))),
+                  MOVE(
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                    BINOP(PLUS,
+                      MEM(
+                        BINOP(MINUS, TEMP %fp, CONST 4)),
+                      CONST 1))),
+                SEQ(
+                  CJUMP(LT,
+                    MEM(
+                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                    MEM(
+                      BINOP(PLUS, TEMP %i0, CONST 4)),
+                    while$body049,while$done050),
+                  LABEL while$done050)))),
+          EVAL(
+            CALL(
+              NAME print_int,
+              CONST 99999)))),
+      MOVE(TEMP %i0, CONST 0)),
+    JUMP(NAME BS$Print$epilogBegin)))
+!	End fragment
+
+!	Procedure fragment BS$Init
+SEQ(
+  LABEL BS$Init$preludeEnd,
+  SEQ(
+    SEQ(
+      SEQ(
+        MOVE(
+          MEM(
+            BINOP(PLUS, TEMP %i0, CONST 4)),
+          TEMP %i1),
+        SEQ(
+          MOVE(
+            MEM(TEMP %i0),
+            CALL(
+              NAME initArray,
+              BINOP(PLUS, TEMP %i1, CONST 1))),
+          SEQ(
+            MOVE(
+              MEM(
+                BINOP(MINUS, TEMP %fp, CONST 4)),
+              CONST 1),
+            SEQ(
+              MOVE(
+                MEM(
+                  BINOP(MINUS, TEMP %fp, CONST 8)),
+                BINOP(PLUS,
+                  MEM(
+                    BINOP(PLUS, TEMP %i0, CONST 4)),
+                  CONST 1)),
+              SEQ(
+                CJUMP(LT,
+                  MEM(
+                    BINOP(MINUS, TEMP %fp, CONST 4)),
+                  MEM(
+                    BINOP(PLUS, TEMP %i0, CONST 4)),
+                  while$body051,while$done052),
+                SEQ(
+                  LABEL while$body051,
+                  SEQ(
+                    SEQ(
+                      MOVE(
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 16)),
+                        BINOP(MUL,
+                          CONST 2,
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 4)))),
+                      SEQ(
+                        MOVE(
+                          MEM(
+                            BINOP(MINUS, TEMP %fp, CONST 12)),
+                          BINOP(MINUS,
+                            MEM(
+                              BINOP(MINUS, TEMP %fp, CONST 8)),
+                            CONST 3)),
+                        SEQ(
+                          MOVE(
+                            MEM(
+                              BINOP(PLUS,
+                                MEM(TEMP %i0),
+                                BINOP(MUL,
+                                  BINOP(PLUS,
+                                    MEM(
+                                      BINOP(MINUS, TEMP %fp, CONST 4)),
+                                    CONST 1),
+                                  CONST 4))),
+                            BINOP(PLUS,
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 16)),
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 12)))),
+                          SEQ(
+                            MOVE(
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 4)),
+                              BINOP(PLUS,
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 4)),
+                                CONST 1)),
+                            MOVE(
+                              MEM(
+                                BINOP(MINUS, TEMP %fp, CONST 8)),
+                              BINOP(MINUS,
+                                MEM(
+                                  BINOP(MINUS, TEMP %fp, CONST 8)),
+                                CONST 1)))))),
+                    SEQ(
+                      CJUMP(LT,
+                        MEM(
+                          BINOP(MINUS, TEMP %fp, CONST 4)),
+                        MEM(
+                          BINOP(PLUS, TEMP %i0, CONST 4)),
+                        while$body051,while$done052),
+                      LABEL while$done052)))))))),
+      MOVE(TEMP %i0, CONST 0)),
+    JUMP(NAME BS$Init$epilogBegin)))
+!	End fragment
+

@@ -1,0 +1,1384 @@
+PARSER_BEGIN(MiniJavaParser)
+	package parser;
+
+	import java.io.InputStream;
+	import syntax.*;
+	import java.util.ArrayList;
+	import java.util.List;
+
+	public class MiniJavaParser {
+		public static int num_errors = 0;
+		public static String filename = "";
+		public MiniJavaParser(String given_filename, InputStream stream) {
+			this(stream);
+			filename = given_filename;
+		}
+		public static void error_handler(ParseException error) {
+			num_errors += 1;
+			int error_col = error.currentToken.beginColumn;
+			int error_line = error.currentToken.beginLine;
+			int token_index = error.expectedTokenSequences[0][0];
+			System.err.println(filename + ":" + error_line + "." + error_col + ": Syntax Error: expecting a '" + error.tokenImage[token_index] + "', found '" + error.currentToken + "'");
+		}
+	}
+PARSER_END(MiniJavaParser)
+
+TOKEN : {
+	  < #DIGIT: ["0"-"9"] >
+	| < INT: "0" | ["1"-"9"] (<DIGIT>)* >
+	| < IF: "if" >
+	| < ELSE: "else" >
+	| < CLASS: "class" >
+	| < PUBLIC: "public" >
+	| < STATIC: "static" >
+	| < VOID: "void" >
+	| < MAIN: "main" >
+	| < DSTRING: "String" >
+	| < DINT: "int" >
+	| < DBOOL: "boolean" >
+	| < WHILE: "while" >
+	| < PRINT: "System.out.println" >
+	| < AND: "&&" >
+	| < LESSTHAN: "<" >
+	| < PLUS: "+" >
+	| < MINUS: "-" >
+	| < TIMES: "*" >
+	| < DOT: "." >
+	| < LENGTH: "length" >
+	| < BOOL: "true" | "false" >
+	| < THIS: "this" >
+	| < NEW: "new" >
+	| < NOT: "!" >
+	| < LBRACKET: "[" >
+	| < RBRACKET: "]" >
+	| < LBRACE: "{" >
+	| < RBRACE: "}" >
+	| < LPAREN: "(" >
+	| < RPAREN: ")" >
+	| < RETURN: "return" >
+	| < EXTENDS: "extends" >
+	| < SEMICOLON: ";" >
+	| < COMMA: "," >
+	| < EQUAL: "=" >
+	| < ID: ["a"-"z", "A"-"Z"] (["a"-"z"] | ["A"-"Z"] | <DIGIT> | "_")* >
+	| < ERROR: ~[" ", "\t", "\n", "\r", "\f"] >
+}
+
+SKIP : {
+	  <"//" (~["\n", "\r"])* ("\n" | "\r" | "\r\n" | "")>
+	| <"/*" (~[])* "*/">
+	| " "
+	| "\t"
+	| "\n"
+	| "\r\n"
+	| "\r"
+}
+
+/* Parser Skip Ahead */
+
+JAVACODE
+void skipAhead(int[] followset) {
+	Token t = MiniJavaParser.token;
+	Token previous_t;
+	boolean in_set = false;
+	int i = 0;
+	do {
+		previous_t = t;
+		t = getNextToken();
+		for(i=0;i<followset.length;i++) {
+			if(t.kind == followset[i]) {
+				in_set = true;
+				break;
+			}
+		}
+	}
+	while(t.kind != EOF && in_set == false);
+	MiniJavaParser.token = previous_t;
+	return;
+}
+
+/* MINIJAVA GRAMMAR */
+
+Program Start() :
+{
+	Program return_val = null;
+	MainClass main_class = null;
+	List <ClassDecl> class_decl_list = new ArrayList<ClassDecl>();
+	ClassDecl class_decl = null;
+}
+{
+	try {
+		main_class = main_class()
+		(
+		class_decl = class_declaration()
+		{class_decl_list.add(class_decl);}
+		)*
+		Eof()
+		{return_val = new Program(main_class, class_decl_list);}
+	}
+	catch(ParseException error) {
+		MiniJavaParser.num_errors += 1;
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+MainClass main_class() :
+{
+	MainClass return_val = null;
+	Statement statement = null;
+	Identifier id_1 = null;
+	Identifier id_2 = null;
+	Token start_token = null;
+}
+{
+	try {
+		start_token = Class()
+		id_1 = Id() 
+		LBrace() Public() Static() Void() 
+		Main() LParen() DString() LBracket() RBracket() 
+		id_2 = Id() 
+		RParen() LBrace() 
+		statement = statement()
+		RBrace() RBrace()
+		{return_val = new MainClass(start_token.beginLine, start_token.beginColumn, id_1, id_2, statement);}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {CLASS, EOF};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+ClassDecl class_declaration() :
+{
+	ClassDecl return_val = null;
+	Identifier class_id = null;
+	Identifier extend_id = null;
+	FieldDecl field_decl = null;
+	List <FieldDecl> field_decl_list = new ArrayList<FieldDecl>();
+	MethodDecl method_decl = null;
+	List <MethodDecl> method_decl_list = new ArrayList<MethodDecl>();
+}
+{
+	try {
+		Class() 
+		class_id = Id() 
+		(
+			Extends() 
+			extend_id = Id()
+		)? 
+		LBrace() 
+		(
+			field_decl = field_declaration()
+			{field_decl_list.add(field_decl);}
+		)* 
+		(
+			method_decl = method_declaration()
+			{method_decl_list.add(method_decl);}
+		)* 
+		RBrace()
+		{
+			if (extend_id == null) {
+				return_val = new SimpleClassDecl(class_id, field_decl_list, method_decl_list);
+			}
+			else {
+				return_val = new ExtendingClassDecl(class_id, extend_id, field_decl_list, method_decl_list);
+			}
+		}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {CLASS, EOF};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+FieldDecl field_declaration() :
+{
+	FieldDecl return_val = null;
+	Type field_type = null;
+	Identifier field_id = null;
+}
+{
+	try {
+		field_type = type() 
+		field_id = Id() 
+		Semicolon()
+		{return_val = new FieldDecl(field_type, field_id);}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {RBRACE, PUBLIC, DINT, DBOOL, ID};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+LocalDecl var_declaration() :
+{
+	LocalDecl return_val = null;
+	Type local_type = null;
+	Identifier local_id = null;
+}
+{
+	try {
+		local_type = type() 
+		local_id = Id() 
+		Semicolon()
+		{return_val = new LocalDecl(local_type, local_id);}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {RBRACE, PUBLIC, DINT, DBOOL, ID};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+MethodDecl method_declaration() :
+{
+	MethodDecl return_val = null;
+	Type method_type = null;
+	Identifier method_id = null;
+	/* General Declaration Vars */
+	Type decl_type = null;
+	Identifier decl_id = null;
+	/* Formal Declarations */
+	FormalDecl formal_decl = null;
+	List <FormalDecl> formal_decl_list = new ArrayList<FormalDecl>();
+	/* Local Declarations */
+	LocalDecl local_decl = null;
+	List <LocalDecl> local_decl_list = new ArrayList<LocalDecl>();
+	/* Statements */
+	Statement method_statement = null;
+	List <Statement> method_statement_list = new ArrayList<Statement>();
+	/* Return Expression */
+	Expression return_expression = null;
+}
+{
+	try {
+		Public() 
+		method_type = type() 
+		method_id = Id() 
+		LParen() 
+		/* Formal Declarations */
+		(
+			decl_type = type() 
+			decl_id = Id()
+			{
+				formal_decl = new FormalDecl(decl_type, decl_id);
+				formal_decl_list.add(formal_decl);
+			}
+			(
+				Comma() 
+				decl_type = type() 
+				decl_id = Id()
+				{
+					formal_decl = new FormalDecl(decl_type, decl_id);
+					formal_decl_list.add(formal_decl);
+				}
+			)*
+		)? 
+		RParen() LBrace() 
+		/* Local Decls */
+		(
+			LOOKAHEAD(2) 
+			local_decl = var_declaration()
+			{
+				local_decl_list.add(local_decl);
+			}
+		)* 
+		/* Statements */
+		(
+			method_statement = statement()
+			{
+				method_statement_list.add(method_statement);
+			}
+		)* 
+		Return() 
+		/* Return Expression */
+		return_expression = expression() 
+		Semicolon() RBrace() 
+		{
+			return_val = (
+					new MethodDecl(
+							method_type,
+							method_id,
+							formal_decl_list,
+							local_decl_list,
+							method_statement_list,
+							return_expression
+						)
+				   );
+		}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {PUBLIC, RBRACE};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Type type() :
+{
+	Type return_val = null;
+	Token id_token = null;
+}
+{ 	try {
+		/* Integer Type or Int Array Type */
+		  DInt() 
+		  {return_val = Type.THE_INTEGER_TYPE;}
+		  (
+		  	LBracket() RBracket()
+		  	{return_val = Type.THE_INT_ARRAY_TYPE;}
+		  )?
+		/* Boolean Type */
+		| DBool()
+		  {return_val = Type.THE_BOOLEAN_TYPE;}
+		/* Identifier Type */
+		| id_token = IdAsToken()
+		  {return_val = new IdentifierType(id_token.beginLine, id_token.beginColumn, id_token.image);}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {ID};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Statement statement() :
+{	
+	/* Return val */
+	Statement return_val = null;
+	/* Start Token */
+	Token start_token = null;
+	/* Block Satement */
+	List <Statement> block_statement_list = new ArrayList<Statement>();
+	Statement block_statement = null;
+	/* If Statement */
+	Expression if_expression = null;
+	Statement if_statement_1 = null;
+	Statement if_statement_2 = null;
+	/* While Statement */
+	Expression while_expression = null;
+	Statement while_statement = null;
+	/* Print Statement */
+	Expression print_expression = null;
+	/* Assign Statement */
+	Identifier assign_id = null;
+	Expression assign_expression = null;
+	/* Array Assign Statement */
+	Expression array_assign_expression = null;
+}
+{
+	try {
+		/* Block */
+		  LBrace() 
+		  (block_statement = statement() {block_statement_list.add(block_statement);})* 
+		  RBrace() 
+		  {return_val = new Block(block_statement_list);}
+		/* If */
+		| start_token = If() 
+		  LParen() 
+		  if_expression = expression() 
+		  RParen() 
+		  if_statement_1 = statement() 
+		  Else() 
+		  if_statement_2 = statement() 
+		  {return_val = new If(start_token.beginLine, start_token.beginColumn, if_expression, if_statement_1, if_statement_2);}
+		/* While */
+		| start_token = While() 
+		  LParen() 
+		  while_expression = expression() 
+		  RParen() 
+		  while_statement = statement()
+		  {return_val = new While(start_token.beginLine, start_token.beginColumn, while_expression, while_statement);}
+		/* Print */
+		| start_token = Print() 
+		  LParen() 
+		  print_expression = expression() 
+		  RParen() Semicolon()
+		  {return_val = new Print(start_token.beginLine, start_token.beginColumn, print_expression);}
+		/* Assign and Array Assign*/
+		| assign_id = Id() 
+		  (LBracket() array_assign_expression = expression() RBracket())? 
+		  start_token = Equal() 
+		  assign_expression = expression() 
+		  Semicolon()
+		  {
+		  	if (array_assign_expression == null) {
+		  		return_val = new Assign(start_token.beginLine, start_token.beginColumn, assign_id, assign_expression);
+		  	}
+		  	else {
+		  		return_val = new ArrayAssign(start_token.beginLine, start_token.beginColumn, assign_id, array_assign_expression, assign_expression);
+		  	}
+		  }
+	}
+	catch (ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {LBRACE, RBRACE, ELSE, IF, WHILE, PRINT, ID, RETURN};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Expression expression() :
+{
+	Token and_token = null;
+	Expression expression_1 = null;
+	Expression and_expression = null;
+}
+{
+	expression_1 = fifth_lvl_expression() 
+	(
+		and_token = And() 
+		and_expression = fifth_lvl_expression() 
+		{expression_1 = new And(and_token.beginLine, and_token.beginColumn, expression_1, and_expression);}
+	)*
+	{
+		
+		return expression_1;
+	}
+}
+
+Expression fifth_lvl_expression() :
+{
+	Token less_than_token = null;
+	Expression expression_1 = null;
+	Expression less_than_expression = null;
+}
+{
+	expression_1 = fourth_lvl_expression() 
+	(
+		less_than_token = LessThan() 
+		less_than_expression = fourth_lvl_expression()
+		{expression_1 = new LessThan(less_than_token.beginLine, less_than_token.beginColumn, expression_1, less_than_expression);}
+	)*
+	{
+		
+		return expression_1;
+	}
+}
+
+Expression fourth_lvl_expression() :
+{
+	Token plmi_token = null;
+	Expression expression_1 = null;
+	Expression plmi_expression = null;
+}
+{
+	expression_1 = third_lvl_expression() 
+	(
+		(plmi_token = Plus() | plmi_token = Minus())
+		plmi_expression = third_lvl_expression()
+		{
+			if (plmi_token.image == "+"){
+				expression_1 = new Plus(plmi_token.beginLine, plmi_token.beginColumn, expression_1, plmi_expression);
+			}
+			else {
+				expression_1 = new Minus(plmi_token.beginLine, plmi_token.beginColumn, expression_1, plmi_expression);
+			}
+		}
+	)*
+	{
+		
+		return expression_1;
+	}
+
+}
+
+Expression third_lvl_expression() :
+{
+	Token times_token = null;
+	Expression expression_1 = null;
+	Expression times_expression = null;
+}
+{
+	expression_1 = second_lvl_expression() 
+	(
+		times_token = Times() 
+		times_expression = second_lvl_expression()
+		{expression_1 = new Times(times_token.beginLine, times_token.beginColumn, expression_1, times_expression);}
+	)*
+	{
+		
+		return expression_1;
+	}
+}
+
+Expression second_lvl_expression() :
+{
+	/* General Vars */
+	Token start_token = null;
+	Expression return_val = null;
+	/* List of Not Expression Tokens */
+	List <Token> not_token_list = new ArrayList<Token>();
+	/* New Object */
+	Identifier object_id = null;
+	/* New Array */
+	Expression array_expression = null;
+}
+{
+	/* Not Expression */
+	  (
+	  	start_token = Not() 
+	  	{not_token_list.add(start_token);}
+	  )* 
+	  return_val = first_lvl_expression()
+	  {
+	  	if (!not_token_list.isEmpty()) {
+		  	for (int i=not_token_list.size()-1;i>=0;i--) {
+		  		start_token = not_token_list.get(i);
+		  		return_val = new Not(start_token.beginLine, start_token.beginColumn, return_val);
+		  	}
+		}
+		
+		return return_val;
+	  }
+	/* New Object or New Array */
+	| start_token = New() 
+	  (
+	  	/* New Object */
+	  	  object_id = Id() 
+	  	  LParen() RParen() 
+	  	  {return_val = new NewObject(start_token.beginLine, start_token.beginColumn, object_id);}
+	  	  (return_val = first_lvl_expression_prime(return_val))?
+	  	/* New Array */
+	  	| DInt() LBracket() 
+	  	  array_expression = first_lvl_expression() 
+	  	  RBracket()
+	  	  {return_val = new NewArray(start_token.beginLine, start_token.beginColumn, array_expression);}
+	  )
+	  {
+	  	
+	  	return return_val;
+	  }
+}
+
+Expression first_lvl_expression() :
+{
+	/* General Vars */
+	Token start_token = null;
+	Expression return_val = null;
+	Expression prime_expression = null;
+}
+{	
+	/* Get initial expression and optional prime expression */
+	(
+		/* Integer Literal */
+		  start_token = Int()
+		  {
+		  	return_val = new IntegerLiteral(start_token.beginLine, start_token.beginColumn, Integer.parseInt(start_token.image));
+		  }
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+		/* True or False */
+		| start_token = Bool() 
+		  {
+		  	if (start_token.image == "true") {
+		  		return_val = new True(start_token.beginLine, start_token.beginColumn);
+		  	}
+		  	else {
+		  		return_val = new False(start_token.beginLine, start_token.beginColumn);
+		  	}
+		  }
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+		  
+		/* Identifier Expression */
+		| start_token = IdAsToken()
+		  {
+		  	return_val = new IdentifierExp(start_token.beginLine, start_token.beginColumn, start_token.image);
+		  }
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+		/* This */
+		| start_token = This() 
+		  {
+		  	return_val = new This(start_token.beginLine, start_token.beginColumn);
+		  }
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+		/* Paren Expression */
+		| LParen() 
+		  return_val = expression() 
+		  RParen() 
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+	)
+	/* If prime expression exists, use initial expression to create prime expression */
+	{
+		if (prime_expression != null) {
+			return_val = prime_expression;
+		}
+		
+		return return_val;
+	}	
+}
+
+Expression first_lvl_expression_prime(Expression left_expression) :
+{
+	Token start_token = null;
+	Expression return_val = null;
+	Expression prime_expression = null;
+	/* Call */
+	Identifier call_id = null;
+	List <Expression> expression_list = new ArrayList<Expression>();
+
+}
+{
+	(
+		/* Array Lookup */
+		  start_token = LBracket() 
+		  return_val = expression() 
+		  RBracket()
+		  {
+			return_val = new ArrayLookup(start_token.beginLine, start_token.beginColumn, left_expression, return_val);
+		  }
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+		/* Array Length or Call */
+		| start_token = Dot() 
+		  (
+		  	/* Length */
+		  	  Length()
+		  	  {
+		  	  	return_val = new ArrayLength(start_token.beginLine, start_token.beginColumn, left_expression);
+		  	  }
+		  	/* Call */
+		  	| call_id = Id() 
+		  	  LParen() 
+		  	  (
+		  	  	return_val = expression()
+		  	  	{expression_list.add(return_val);}
+		  	  	(
+		  	  		Comma() 
+		  	  		return_val = expression()
+		  	  		{expression_list.add(return_val);}
+		  	  	)*
+		  	  )? 
+		  	  RParen()
+		  	  {
+		  	  	return_val = new Call(start_token.beginLine, start_token.beginColumn, left_expression, call_id, expression_list);
+		  	  }
+		  ) 
+		  (prime_expression = first_lvl_expression_prime(return_val))?
+	)
+	/* If prime expression exists, return that intead */
+	{
+		if (prime_expression != null) {
+			return_val = prime_expression;
+		}
+		
+		return return_val;
+	}	
+}
+
+Token Int() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <INT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token If() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <IF>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Else() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <ELSE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Class() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <CLASS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Public() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <PUBLIC>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Static() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <STATIC>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Void() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <VOID>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Main() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <MAIN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token DString() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <DSTRING>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token DInt() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <DINT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token DBool() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <DBOOL>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token While() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <WHILE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Print() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <PRINT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token And() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <AND>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token LessThan() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <LESSTHAN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Plus() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <PLUS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Minus() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <MINUS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Times() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <TIMES>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Dot() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <DOT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Length() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <LENGTH>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Bool() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <BOOL>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token This() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <THIS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token New() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <NEW>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Not() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <NOT>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token LBracket() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <LBRACKET>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token RBracket() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <RBRACKET>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token LBrace() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <LBRACE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token RBrace() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <RBRACE>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token LParen() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <LPAREN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token RParen() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <RPAREN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Return() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <RETURN>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Extends() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <EXTENDS>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Semicolon() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <SEMICOLON>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		int[] followset = {LBRACE, RBRACE, LBRACKET, RBRACKET, IF, ELSE, WHILE, RETURN, PRINT, DINT, DBOOL, ID, PUBLIC};
+		skipAhead(followset);
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Comma() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <COMMA>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Equal() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <EQUAL>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Identifier Id() :
+{
+	Identifier return_val = null;
+	Token id_token = null;
+}
+{
+	try {
+		id_token = <ID>
+		{return_val = new Identifier(id_token.beginLine, id_token.beginColumn, id_token.image);}
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token IdAsToken() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <ID>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}
+
+Token Eof() :
+{
+	Token return_val = null;
+}
+{
+	try {
+		return_val = <EOF>
+	}
+	catch(ParseException e) {
+		MiniJavaParser.error_handler(e);
+		getNextToken();
+	}
+	finally {
+		
+		return return_val;
+	}
+}

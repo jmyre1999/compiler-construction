@@ -1,0 +1,5 @@
+   static Stm another_program =   new PrintStm(new PairExpList(
+                                    new NumExp(1), new PairExpList(
+                                      new NumExp(2), new LastExpList(
+                                          new EseqExp(new PrintStm(
+                                              new LastExpList(new NumExp(3))), new NumExp(4))))));
